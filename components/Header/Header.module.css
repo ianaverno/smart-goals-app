@@ -1,0 +1,24 @@
+.header {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  padding: 2rem;
+  border-bottom: 1px solid var(--grey-light);
+  background-color: white;
+}
+
+.logo {
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.logo strong { 
+  color: var(--lg-cta);
+}
+
+.logo sub {
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--lg-light);
+}

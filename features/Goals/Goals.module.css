@@ -1,0 +1,14 @@
+.goals {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  color: var(--alert);
+}
