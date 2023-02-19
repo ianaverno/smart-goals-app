@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { TiDelete } from "react-icons/ti";
 import DeleteGoalConfirm from './DeleteGoalConfirm'; 
 import styles from './Goal.module.scss';
@@ -34,9 +34,9 @@ export default function Goal({goal}) {
           <h2>
             {goal.description}
 
-            <small>
+            <sup>
               {goal.interval}
-            </small>
+            </sup>
           </h2>
 
           <div className={styles.actions}>
@@ -51,15 +51,19 @@ export default function Goal({goal}) {
             Target: {goal.target_value} {goal.unit_of_measure} by { goal.target_date }
           </h3>
 
-          <BarChart width={600} height={100} margin={{left: 0}} data={chartData}>
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Bar 
-              dataKey="value" 
-              barSize={8} 
-              fill="#5043d1"
-            />
-          </BarChart >
+          <div className={styles.chart}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart width={600} height={100} margin={{left: 0}} data={chartData}>
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Bar 
+                dataKey="value" 
+                barSize={8} 
+                fill="#5043d1"
+              />
+            </BarChart >
+            </ResponsiveContainer>
+          </div>
         </section>
       </div>
       

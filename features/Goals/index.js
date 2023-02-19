@@ -20,13 +20,17 @@ export default function Goals() {
   switch (goalsStatus) {
     case 'idle':
     case 'loading':
-      content = (
-        <>
-          <Loader size={36} error={error} />
-
+      let errorNode = null;
+      if (error) {
+        errorNode = (
           <div className={styles.error}>
             Error: {error}
           </div> 
+        )
+      }
+      content = (
+        <>
+          <Loader size={36} error={error} />
         </>
       )
       break
