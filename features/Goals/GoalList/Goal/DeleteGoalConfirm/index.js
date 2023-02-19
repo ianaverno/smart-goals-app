@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { destroyGoalThunk } from '../../../goalsSlice';
-import styles from './DeleteGoalConfirm.module.scss'
+import styles from './DeleteGoalConfirm.module.scss';
 
 export default function DeleteGoalConfirm({url, onCancel}) {
   const dispatch = useDispatch();

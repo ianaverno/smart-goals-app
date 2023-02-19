@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { ComposedChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Line } from 'recharts';
 import { TiDelete } from "react-icons/ti";
 import DeleteGoalConfirm from './DeleteGoalConfirm'; 
 import styles from './Goal.module.scss';
@@ -32,11 +32,7 @@ export default function Goal({goal}) {
       <div className={`${styles.content} ${blur}`}>
         <header>
           <h2>
-            {goal.description}
-
-            <sup>
-              {goal.interval}
-            </sup>
+            <span>{goal.description}</span>&nbsp;<sup>{goal.interval}</sup>
           </h2>
 
           <div className={styles.actions}>
@@ -53,15 +49,25 @@ export default function Goal({goal}) {
 
           <div className={styles.chart}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart width={600} height={100} margin={{left: 0}} data={chartData}>
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Bar 
-                dataKey="value" 
-                barSize={8} 
-                fill="#5043d1"
-              />
-            </BarChart >
+              <ComposedChart 
+                data={chartData}
+                width={600} 
+                height={100} 
+                margin={{left: 0}} 
+              >
+                <XAxis dataKey="date" />
+                <YAxis dataKey="value" />
+                <Tooltip />
+                <Bar  
+                  dataKey="value" 
+                  fill="#5043d1"
+                  minPointSize={2}
+                  background={true}
+                  unit={goal.unit_of_measure}
+                />
+                <Line value={goal.target_value}/>
+                
+            </ComposedChart >
             </ResponsiveContainer>
           </div>
         </section>

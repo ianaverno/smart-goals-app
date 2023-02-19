@@ -4,7 +4,9 @@ import axios from 'axios';
 const initialState = {
   status: 'idle',
   goals: [],
-  error: null
+  error: null,
+  errorDetails: [],
+  form: false
 }
 
 export const goalsSlice = createSlice({
@@ -28,17 +30,31 @@ export const goalsSlice = createSlice({
       state.error = null;
     },
     destroyGoalSuccess: (state, action) => {
-      console.log("action.payload", action.payload);
-      state.status = 'loaded'
-      state.error = null
+      state.status = 'loaded';
+      state.error = null;
       state.goals = state.goals.filter(g => g.id !== action.payload.goal.id);
     },
     destroyGoalFailure: (state, action) => {
-      state.status = 'loaded'
+      state.status = 'loaded';
+      state.error = action.payload.error;
+    },
+    createGoalStart: (state) => {
+      state.status = 'creating';
+      state.error = null;
+    },
+    createGoalSuccess: (state, action) => {
+      state.status = 'loaded';
+      state.goals.unshift(action.payload.goal);
+      state.error = null;
+    },
+    createGoalFailure: (state, action) => {
+      state.status = 'loaded';
       state.error = action.payload.error
+    },
+    toggleForm: (state, action) => {
+      state.form = !state.form
     }
-  }
-});
+}});
 
 
 export const {
@@ -47,7 +63,10 @@ export const {
   fetchGoalsFailure,
   destroyGoalStart,
   destroyGoalSuccess,
-  destroyGoalFailure
+  destroyGoalFailure,
+  createGoalStart,
+  createGoalSuccess,
+  createGoalFailure
 } = goalsSlice.actions;
 
 const host = 'http://localhost:3000';
@@ -73,15 +92,15 @@ export const destroyGoalThunk = (url) => async (dispatch) => {
   }
 }
 
-// export const createGoalThunk = (goalData) => async (dispatch) => {
-//   try {
-//     dispatch(createGoalStart());
-//     const newGoal = await createGoal(goalData);
-//     dispatch(createGoalSuccess(newGoal));
-//   } catch (error) {
-//     dispatch(createGoalFailure(error.message));
-//   }
-// }
+export const createGoalThunk = (payload) => async (dispatch) => {
+  try {
+    dispatch(createGoalStart());
+    const newGoal = await axios.post(goalsUrl, { goal: payload });
+    dispatch(createGoalSuccess(newGoal));
+  } catch (error) {
+    dispatch(createGoalFailure(error.message));
+  }
+}
 
 export default goalsSlice.reducer;
 

@@ -1,0 +1,55 @@
+.header {
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--grey-light);
+  background-color: white;
+
+  & > * {
+    flex: 1;
+  }
+
+  .logo {
+    text-transform: uppercase;
+    font-size: 2rem;
+    
+    strong { 
+      color: var(--lg-cta);
+    }
+  
+    sub {
+      font-size: 0.6rem;
+      font-weight: bold;
+      color: var(--lg-light);
+    }
+  }
+
+  .cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    button {
+      svg {
+        transition: all 300ms ease-out;
+        transform: rotate(45deg);
+        height: 4rem;
+        width: 4rem;
+        color: var(--lg-cta);
+      }
+
+      &:hover {
+        filter: grayscale(20%);
+      }
+
+      &.toggle {
+        transform: rotate(0deg);
+      }
+    }
+  }
+}
+

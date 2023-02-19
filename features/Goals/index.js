@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectAllGoals, fetchGoalsThunk } from './goalsSlice';
 
 import Loader from '../../components/Loader';
-import AddGoal from "./AddGoal";
 import GoalList from "./GoalList";
 import styles from './Goals.module.css';
-
+import AddGoal from "./AddGoal";
 
 export default function Goals() {
   const dispatch = useDispatch();
