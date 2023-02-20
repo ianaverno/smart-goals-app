@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  border-top: 1px solid #eaeaea;
+  background-color: var(--lg-light);
+  color: white;
+}
+
+.footer a {
+  display: flex;
+  align-items: center;
+}
+
+.footer a svg {
+  transition: transform 200ms ease;
+  margin-left: 0.2rem;
+}
+
+.footer a:hover svg {
+  transform: rotate(-90deg);
+}

@@ -1,0 +1,48 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #f43f5e, $alpha: 0.25);
+  
+  .dialog {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .prompt {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--alert);
+    }
+  
+    .actions {
+      margin-top: 3rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      button {
+        margin: 0 2rem;
+        height: 2rem;
+        padding: 0 1rem;
+        border-radius: 1rem;
+        background-color: var(--lg-light);
+        color: white;
+  
+        &.alert {
+          background-color: var(--alert);
+        }
+      }
+    }
+  }
+}
