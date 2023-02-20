@@ -5,7 +5,7 @@ const initialState = {
   status: 'idle',
   goals: [],
   error: null,
-  errorDetails: [],
+  errorDetails: {},
   form: false
 }
 
@@ -46,13 +46,41 @@ export const goalsSlice = createSlice({
       state.status = 'loaded';
       state.goals.unshift(action.payload.goal);
       state.error = null;
+      state.form = false;
     },
     createGoalFailure: (state, action) => {
+      console.log(action.payload);
       state.status = 'loaded';
       state.error = action.payload.error
+      state.errorDetails = action.payload.details
     },
-    toggleForm: (state, action) => {
+    updateStatStart: (state) => {
+      state.status = 'updating';
+      state.error = null;
+    },
+    updateStatSuccess: (state, action) => {
+      const goal = state.goals.find(goal => goal.id == action.payload.stat.goal_id);
+      if (goal) {
+        const stat = goal.stats.find(stat => stat.id == action.payload.stat.id)
+        if (stat) {
+          stat.value = action.payload.stat.value
+        }
+      } 
+      
+      state.status = 'loaded';
+      state.error = null;
+    },
+    updateStatFailure: (state, action) => {
+
+    },
+    toggleForm: (state) => {
+      state.error = null;
+      state.errorDetails = {};
       state.form = !state.form
+    },
+    removeErrorDetails: (state, action) => {
+      console.log(action.payload);
+      state.errorDetails[action.payload] = null;
     }
 }});
 
@@ -66,7 +94,12 @@ export const {
   destroyGoalFailure,
   createGoalStart,
   createGoalSuccess,
-  createGoalFailure
+  createGoalFailure,
+  updateStatStart,
+  updateStatSuccess,
+  updateStatFailure,
+  toggleForm,
+  removeErrorDetails
 } = goalsSlice.actions;
 
 const host = 'http://localhost:3000';
@@ -95,10 +128,21 @@ export const destroyGoalThunk = (url) => async (dispatch) => {
 export const createGoalThunk = (payload) => async (dispatch) => {
   try {
     dispatch(createGoalStart());
-    const newGoal = await axios.post(goalsUrl, { goal: payload });
-    dispatch(createGoalSuccess(newGoal));
+    const response = await axios.post(goalsUrl, { goal: payload });
+    dispatch(createGoalSuccess(response.data));
   } catch (error) {
-    dispatch(createGoalFailure(error.message));
+    dispatch(createGoalFailure(error.response.data));
+  }
+}
+
+export const updateStatThunk = (url, payload) => async (dispatch) => {
+  try {
+    console.log("reducer")
+    dispatch(updateStatStart());
+    const response = await axios.patch(url, { stat: payload });
+    dispatch(updateStatSuccess(response.data));
+  } catch (error) {
+    dispatch(updateStatFailure(error.response.data));
   }
 }
 

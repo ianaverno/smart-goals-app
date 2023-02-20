@@ -11,18 +11,20 @@ export default function DeleteGoalConfirm({url, onCancel}) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.prompt}>
-        Delete this goal?
-      </div>
+      <div className={styles.dialog}>
+        <div className={styles.prompt}>
+          Delete this goal?
+        </div>
 
-      <div className={styles.actions}>
-        <button className={styles.alert} onClick={onConfirm}>
-          Confirm
-        </button>
-        
-        <button onClick={onCancel}>
-          Cancel
-        </button>
+        <div className={styles.actions}>
+          <button className={styles.alert} onClick={onConfirm}>
+            Confirm
+          </button>
+          
+          <button onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   )

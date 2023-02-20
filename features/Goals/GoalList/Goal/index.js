@@ -1,23 +1,52 @@
 import { useState } from 'react';
-import { ComposedChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Line } from 'recharts';
-import { TiDelete } from "react-icons/ti";
+import { ComposedChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import DeleteGoalConfirm from './DeleteGoalConfirm'; 
+import EditGoalStat from './EditGoalStat';
+import { TiDelete } from 'react-icons/ti';
 import styles from './Goal.module.scss';
 
-export default function Goal({goal}) {
-  const chartData = goal.stats
+const StatTooltip = ({active, payload, label}) => {
+  if (active && payload && payload.length) {
+    return(
+      <div className={styles.tooltip}>
+        <small className={styles.date}>{label}</small>
+        <div className={styles.value}>
+          {`${payload[0].value} ${payload[0].unit}`}
+        </div>
+        <em className={styles.hint}>Click to edit</em>
+      </div>
+    )
+  }
+}
 
-  const [deleteConfirm, setDeleteConfirm] = useState(false)
+export default function Goal({goal}) {
+  const chartData = goal.stats;
+
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [editStat, setEditStat] = useState({});
 
   const onDeleteGoalClicked = () => {
-    setDeleteConfirm(true)
+    setDeleteConfirm(true);
   }
 
   const onDeleteCancel = () => {
-    setDeleteConfirm(false)
+    setDeleteConfirm(false);
   }
 
-  let deleteConfirmNode = blur = null;
+  const onEditClose = () => {
+    setEditStat({})
+  }
+
+  const handleBarClick = (bar) => {
+    console.log(bar.payload);
+    if (bar.payload.url) {
+      setEditStat(bar.payload);
+    }
+  }
+
+  let deleteConfirmNode;
+  let blur;
+  let editStatNode;
 
   if (deleteConfirm) {
     deleteConfirmNode = (
@@ -25,6 +54,14 @@ export default function Goal({goal}) {
     )
 
     blur = styles.blur
+  };
+
+  if (editStat.url) {
+    editStatNode = (
+      <EditGoalStat stat={editStat} unit={goal.unit_of_measure} onCancel={onEditClose}/>
+    )
+
+    blur = styles.blur;
   }
 
   return (
@@ -57,16 +94,17 @@ export default function Goal({goal}) {
               >
                 <XAxis dataKey="date" />
                 <YAxis dataKey="value" />
-                <Tooltip />
+                <Tooltip content={StatTooltip} />
                 <Bar  
+                  width={10}
                   dataKey="value" 
                   fill="#5043d1"
                   minPointSize={2}
                   background={true}
                   unit={goal.unit_of_measure}
+                  onClick={(payload) => handleBarClick(payload)}
+                  style={{cursor: 'pointer'}}
                 />
-                <Line value={goal.target_value}/>
-                
             </ComposedChart >
             </ResponsiveContainer>
           </div>
@@ -74,6 +112,7 @@ export default function Goal({goal}) {
       </div>
       
       { deleteConfirmNode }
+      { editStatNode }
     </article>
   )
 }

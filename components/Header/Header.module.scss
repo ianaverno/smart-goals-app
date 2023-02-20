@@ -3,20 +3,81 @@
   position: fixed;
   width: 100%;
   padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid var(--grey-light);
   background-color: white;
+  transition: all 250ms ease-out;
+  overflow-y: hidden;
+  height: 8rem;
 
-  & > * {
-    flex: 1;
+
+  &.idle {
+    .topbar {
+      .logo {
+        sub {
+          color: var(--lg-light);
+        }
+      }
+
+      .cta button {
+        transform: rotate(-45deg);
+        
+        svg {
+          color: var(--lg-cta);
+        }
+      }
+    }
+  }
+
+  &.form {
+    height: 100vh;
+    background-color: var(--lg-cta);
+
+    .topbar {
+      .logo {
+        color: var(--lg-cta);
+
+        span { 
+          color: var(--grey-light);
+        }
+      }
+
+      .cta, .links {
+        flex: 0;
+      }
+
+      .links {
+        opacity: 0;
+      }
+  
+      .cta button {
+        transform: rotate(0deg);
+  
+        svg {
+          color: var(--grey-light);
+        }
+      }
+
+      .links {
+        overflow: hidden;
+      }
+    }
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > * {
+      flex: 1;
+      transition: all 350ms ease;
+    }
   }
 
   .logo {
     text-transform: uppercase;
     font-size: 2rem;
-    
+
     strong { 
       color: var(--lg-cta);
     }
@@ -24,7 +85,6 @@
     sub {
       font-size: 0.6rem;
       font-weight: bold;
-      color: var(--lg-light);
     }
   }
 
@@ -34,22 +94,45 @@
     align-items: center;
     
     button {
-      svg {
-        transition: all 300ms ease-out;
-        transform: rotate(45deg);
-        height: 4rem;
-        width: 4rem;
-        color: var(--lg-cta);
+      opacity: 1;
+      transition: all 1s ease-out;
+
+      &.hidden {
+        opacity: 0;
+        visibility: hidden;
       }
 
       &:hover {
-        filter: grayscale(20%);
+        opacity: 0.8;
       }
-
-      &.toggle {
-        transform: rotate(0deg);
+      
+      svg {
+        height: 4rem;
+        width: 4rem;
       }
     }
+  }
+
+  .git {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      font-size: 1.5rem;
+      margin: 0.25rem 0;
+    }
+    
+    a {
+      font-size: 0.8rem;
+    }
+  }
+
+  .links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 

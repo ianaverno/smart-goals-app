@@ -5,7 +5,6 @@ import { selectAllGoals, fetchGoalsThunk } from './goalsSlice';
 import Loader from '../../components/Loader';
 import GoalList from "./GoalList";
 import styles from './Goals.module.css';
-import AddGoal from "./AddGoal";
 
 export default function Goals() {
   const dispatch = useDispatch();
@@ -39,7 +38,6 @@ export default function Goals() {
           <GoalList goals={goals}/>
         </>
       )
-      
       break
     default:
       break;
