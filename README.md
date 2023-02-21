@@ -1,5 +1,8 @@
 # Smart Goals App
 
+## To run
+
+
 ## Dev notes / known issues
 * Styles are minimal, no reset and/or css framework is used
 * Browserlist config, Autoprefixer configs are skipped
