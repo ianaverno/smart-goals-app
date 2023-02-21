@@ -1,5 +1,8 @@
 # Smart Goals App
 
+## To run
+Clone repo and run `npm install` -> `npm run dev`
+
 ## Dev notes / known issues
 * Styles are minimal, no reset and/or css framework is used
 * Browserlist config, Autoprefixer configs are skipped
@@ -12,11 +15,3 @@ retrospectively following the json-api spec would have been a better
 [back-end](https://github.com/ianaverno/smart-goal-api) implementation
 * no eager loading implemented
 * no tests on the front-end
-
-
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
