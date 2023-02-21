@@ -1,10 +1,13 @@
 # Smart Goals App
 
 ## To run
-Clone repo and run `npm install` -> `npm run dev`
+Clone repo and run `npm install` -> `npm run dev`. 
+Then go to [localhost:3001](http://localhost:3001)
+
 
 ## Dev notes / known issues
 * Styles are minimal, no reset and/or css framework is used
+* Not optimized for mobile (missing responsive mediaqueries)
 * Browserlist config, Autoprefixer configs are skipped
 * Create form is poorly implemented: bad ui, no input validations (server-side
 only) and codewise component needs major rework
